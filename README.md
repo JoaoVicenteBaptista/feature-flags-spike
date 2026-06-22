@@ -18,7 +18,7 @@ Both hosts register `Microsoft.FeatureManagement` with Azure App Configuration a
 
 ## Prerequisites
 
-- [.NET SDK 10.0+](https://dotnet.microsoft.com/download)
+- [.NET SDK 8.0+](https://dotnet.microsoft.com/download)
 - [Terraform CLI 1.5+](https://developer.hashicorp.com/terraform/downloads)
 - [Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli) (for deployment)
 
@@ -108,8 +108,8 @@ terraform apply  # creates RG, storage, service plan, functions, app service, ap
 
 This provisions:
 - Resource group, Linux B1 service plan, storage account
-- Azure Functions (.NET 10, isolated worker) with `FeatureManagement__FeatureA/B` env vars
-- App Service (.NET 10) with the same env vars
+- Azure Functions (.NET 8, isolated worker) with `FeatureManagement__FeatureA/B` env vars
+- App Service (.NET 8) with the same env vars
 - Azure App Configuration store with `FeatureA` and `FeatureB` feature flags (disabled by default)
 - Managed identities + `App Configuration Data Reader` role assignments
 
@@ -173,7 +173,7 @@ terraform/
 
 | Component | Technology |
 |-----------|-----------|
-| Runtime | .NET 10 |
+| Runtime | .NET 8 |
 | Feature Flags | Microsoft.FeatureManagement 4.5.0 |
 | App Config | Microsoft.Extensions.Configuration.AzureAppConfiguration 8.5.0 |
 | Functions | Isolated Worker, v4 programming model |
