@@ -110,10 +110,27 @@ This provisions:
 - Resource group, Linux B1 service plan, storage account
 - Azure Functions (.NET 8, isolated worker) with `FeatureManagement__FeatureA/B` env vars
 - App Service (.NET 8) with the same env vars
-- Azure App Configuration store with `FeatureA` and `FeatureB` feature flags (disabled by default)
-- Managed identities + `App Configuration Data Reader` role assignments
+- Azure App Configuration store with Managed Identity
 
-### 3. Publish Applications
+### 3. Create Feature Flags in App Configuration
+
+Terraform's `azurerm_app_configuration_feature` is notoriously slow (10+ min per flag). Use `az` CLI instead:
+
+```bash
+# Get the App Config store name from Terraform output
+APP_CONFIG=$(terraform -chdir=terraform output -raw app_configuration_name)
+
+# Create FeatureA (disabled) and FeatureB (disabled)
+az appconfig feature set --name "$APP_CONFIG" --feature FeatureA --label prd
+az appconfig feature set --name "$APP_CONFIG" --feature FeatureB
+```
+
+To enable a flag later (simulating migration):
+```bash
+az appconfig feature enable --name "$APP_CONFIG" --feature FeatureA
+```
+
+### 4. Publish Applications
 
 ```bash
 dotnet publish src/FeatureFlags.Functions -c Release -o publish/functions
@@ -133,7 +150,7 @@ az webapp deployment source config-zip \
   --src publish/api.zip
 ```
 
-### 4. Verify
+### 5. Verify
 
 ```bash
 curl https://ffpoc-func.azurewebsites.net/api/features

@@ -21,15 +21,3 @@ variable "feature_b_env_value" {
   type        = bool
   default     = false
 }
-
-variable "feature_a_appconfig_value" {
-  description = "FeatureA value set in Azure App Configuration"
-  type        = bool
-  default     = false
-}
-
-variable "feature_b_appconfig_value" {
-  description = "FeatureB value set in Azure App Configuration"
-  type        = bool
-  default     = false
-}
