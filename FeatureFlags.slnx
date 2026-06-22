@@ -1,0 +1,5 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/FeatureFlags.Shared/FeatureFlags.Shared.csproj" />
+  </Folder>
+</Solution>

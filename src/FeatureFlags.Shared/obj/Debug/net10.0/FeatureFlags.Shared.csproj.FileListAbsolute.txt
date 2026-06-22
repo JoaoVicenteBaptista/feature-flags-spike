@@ -1,0 +1,12 @@
+/home/joao/Repos/feature-flags-spike/src/FeatureFlags.Shared/bin/Debug/net10.0/FeatureFlags.Shared.deps.json
+/home/joao/Repos/feature-flags-spike/src/FeatureFlags.Shared/bin/Debug/net10.0/FeatureFlags.Shared.dll
+/home/joao/Repos/feature-flags-spike/src/FeatureFlags.Shared/bin/Debug/net10.0/FeatureFlags.Shared.pdb
+/home/joao/Repos/feature-flags-spike/src/FeatureFlags.Shared/obj/Debug/net10.0/FeatureFlags.Shared.csproj.AssemblyReference.cache
+/home/joao/Repos/feature-flags-spike/src/FeatureFlags.Shared/obj/Debug/net10.0/FeatureFlags.Shared.GeneratedMSBuildEditorConfig.editorconfig
+/home/joao/Repos/feature-flags-spike/src/FeatureFlags.Shared/obj/Debug/net10.0/FeatureFlags.Shared.AssemblyInfoInputs.cache
+/home/joao/Repos/feature-flags-spike/src/FeatureFlags.Shared/obj/Debug/net10.0/FeatureFlags.Shared.AssemblyInfo.cs
+/home/joao/Repos/feature-flags-spike/src/FeatureFlags.Shared/obj/Debug/net10.0/FeatureFlags.Shared.csproj.CoreCompileInputs.cache
+/home/joao/Repos/feature-flags-spike/src/FeatureFlags.Shared/obj/Debug/net10.0/FeatureFlags.Shared.dll
+/home/joao/Repos/feature-flags-spike/src/FeatureFlags.Shared/obj/Debug/net10.0/refint/FeatureFlags.Shared.dll
+/home/joao/Repos/feature-flags-spike/src/FeatureFlags.Shared/obj/Debug/net10.0/FeatureFlags.Shared.pdb
+/home/joao/Repos/feature-flags-spike/src/FeatureFlags.Shared/obj/Debug/net10.0/ref/FeatureFlags.Shared.dll
