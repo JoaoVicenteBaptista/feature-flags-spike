@@ -4,3 +4,6 @@ obj/
 *.user
 *.suo
 .terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
