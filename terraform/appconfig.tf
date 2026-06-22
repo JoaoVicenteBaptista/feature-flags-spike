@@ -8,3 +8,15 @@ resource "azurerm_app_configuration" "main" {
     type = "SystemAssigned"
   }
 }
+
+resource "azurerm_app_configuration_feature" "feature_a" {
+  configuration_store_id = azurerm_app_configuration.main.id
+  name                   = "FeatureA"
+  enabled                = false
+}
+
+resource "azurerm_app_configuration_feature" "feature_b" {
+  configuration_store_id = azurerm_app_configuration.main.id
+  name                   = "FeatureB"
+  enabled                = false
+}
