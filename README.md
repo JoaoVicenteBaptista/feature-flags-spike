@@ -110,12 +110,20 @@ This provisions:
 - Resource group, Linux B1 service plan, storage account
 - Azure Functions (.NET 8, isolated worker) with `FeatureManagement__FeatureA/B` env vars
 - App Service (.NET 8) with the same env vars
-- Azure App Configuration store with Managed Identity + `FeatureA`/`FeatureB` feature flags
+- Azure App Configuration store with Managed Identity
 - Managed identities + `App Configuration Data Reader` role assignments
 
-Note: `azurerm_app_configuration_feature` takes 5-10 minutes per flag due to Azure API propagation delays.
+### 3. Create Feature Flags
 
-### 3. Publish Applications
+`azurerm_app_configuration_feature` is unreliable in the Terraform AzureRM provider. Use `az rest` instead:
+
+```bash
+source <(terraform -chdir=terraform output -raw feature_flags_command)
+```
+
+This creates `FeatureA` (enabled) and `FeatureB` (disabled) in App Configuration.
+
+### 4. Publish Applications
 
 ```bash
 dotnet publish src/FeatureFlags.Functions -c Release -o publish/functions
@@ -135,7 +143,7 @@ az webapp deployment source config-zip \
   --src publish/api.zip
 ```
 
-### 4. Verify
+### 5. Verify
 
 ```bash
 curl https://ffpoc-func.azurewebsites.net/api/features

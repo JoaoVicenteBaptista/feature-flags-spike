@@ -22,10 +22,13 @@ output "app_configuration_name" {
   value = azurerm_app_configuration.main.name
 }
 
-output "create_feature_flags_command" {
-  sensitive = true
-  value = join(" && ", [
-    "az appconfig feature set --name ${azurerm_app_configuration.main.name} --feature FeatureA --label prd -o none",
-    "az appconfig feature set --name ${azurerm_app_configuration.main.name} --feature FeatureB -o none",
-  ])
+output "feature_flags_command" {
+  value = <<-EOT
+    az rest --method put --headers "Content-Type=application/json" \
+      --uri "https://management.azure.com/subscriptions/${data.azurerm_subscription.current.subscription_id}/resourceGroups/${azurerm_resource_group.main.name}/providers/Microsoft.AppConfiguration/configurationStores/${azurerm_app_configuration.main.name}/keyValues/.appconfig.featureflag~2FFeatureA?api-version=2023-03-01" \
+      --body '{"properties":{"value":"{\"id\":\"FeatureA\",\"enabled\":true,\"conditions\":{\"client_filters\":[]}}","contentType":"application/vnd.microsoft.appconfig.ff+json;charset=utf-8","tags":{}}}' -o none && \
+    az rest --method put --headers "Content-Type=application/json" \
+      --uri "https://management.azure.com/subscriptions/${data.azurerm_subscription.current.subscription_id}/resourceGroups/${azurerm_resource_group.main.name}/providers/Microsoft.AppConfiguration/configurationStores/${azurerm_app_configuration.main.name}/keyValues/.appconfig.featureflag~2FFeatureB?api-version=2023-03-01" \
+      --body '{"properties":{"value":"{\"id\":\"FeatureB\",\"enabled\":false,\"conditions\":{\"client_filters\":[]}}","contentType":"application/vnd.microsoft.appconfig.ff+json;charset=utf-8","tags":{}}}' -o none
+  EOT
 }
