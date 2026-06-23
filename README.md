@@ -126,6 +126,10 @@ This creates `FeatureA` (enabled) and `FeatureB` (disabled) in App Configuration
 ### 4. Publish Applications
 
 ```bash
+RG=$(terraform -chdir=terraform output -raw resource_group_name)
+FUNC=$(terraform -chdir=terraform output -raw function_app_name)
+API=$(terraform -chdir=terraform output -raw web_app_name)
+
 dotnet publish src/FeatureFlags.Functions -c Release -o publish/functions
 cd publish/functions && zip -r ../functions.zip . && cd ../..
 
@@ -133,21 +137,21 @@ dotnet publish src/FeatureFlags.Api -c Release -o publish/api
 cd publish/api && zip -r ../api.zip . && cd ../..
 
 az functionapp deployment source config-zip \
-  --resource-group ffpoc-rg \
-  --name ffpoc-func \
+  --resource-group "$RG" \
+  --name "$FUNC" \
   --src publish/functions.zip
 
 az webapp deployment source config-zip \
-  --resource-group ffpoc-rg \
-  --name ffpoc-api \
+  --resource-group "$RG" \
+  --name "$API" \
   --src publish/api.zip
 ```
 
 ### 5. Verify
 
 ```bash
-curl https://ffpoc-func.azurewebsites.net/api/features
-curl https://ffpoc-api.azurewebsites.net/api/features
+curl "$(terraform -chdir=terraform output -raw function_app_url)"
+curl "$(terraform -chdir=terraform output -raw web_app_url)"
 ```
 
 Both should return `"source": "AppConfiguration"` since the App Config connection string is now wired.
